@@ -2,10 +2,10 @@ import  { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { IconButton } from '@mui/material';
 import Star from '@mui/icons-material/Star';
-import { USERNAMESARRAY } from './constants';
+import { generarRandomUsers } from './utils/RealStringGenerator';
 
 const ChatComponent = ({randomUser}) => {
-  const [usuarios, setUsuarios] = useState(USERNAMESARRAY);
+  const [usuarios, setUsuarios] = useState(generarRandomUsers(20));
   const limit = usuarios.length
   
 

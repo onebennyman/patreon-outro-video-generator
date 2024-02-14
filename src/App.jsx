@@ -3,7 +3,7 @@ import "./App.css";
 import { Button } from "@mui/material";
 import { Attribution, Settings, SentimentSatisfied } from "@mui/icons-material";
 import Chat from "./Chat";
-import { RANDOM_USER } from "./constants";
+import { generarRandomUser } from "./utils/RealStringGenerator";
 
 function App() {
   const [randomUser, setRandomUser] = useState(null);
@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (randomUser === null) {
-        setRandomUser(RANDOM_USER());
+        setRandomUser(generarRandomUser());
       } else {
         setRandomUser(null);
       }
@@ -21,7 +21,7 @@ function App() {
   }, [intervalTime, randomUser]);
 
   return (
-    <div id="main-container" className="border-3 border-black-900 grid grid-cols-1 gap-3">
+    <div id="main-container" className="border-3 border-black-900 grid grid-cols-1 gap-3 p-3">
       <Chat randomUser={randomUser} />
       <div id="control-box">
         <div id="input-box" className="w-full border-2 border-purple-600 rounded flex flex-row justify-stretch items-center p-1">
