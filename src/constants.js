@@ -1,4 +1,5 @@
-import { generarNombres,generarString } from "./utils/StringGenerator"
+import { generarRandomSentencia, generarRandomUser, generarRandomUsers } from "./utils/StringGenerator";
 
-export const USERNAMESARRAY = generarNombres(20)
-export const RANDOMMESSAGE = (longitud) => generarString(longitud)
+export const USERNAMESARRAY = generarRandomUsers(20);
+export const RANDOM_USER = () => generarRandomUser();
+export const RANDOMMESSAGE = () => generarRandomSentencia();

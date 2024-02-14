@@ -1,29 +1,28 @@
+import { useEffect, useState } from "react";
 import "./App.css";
-import { USERNAMESARRAY, RANDOMMESSAGE } from "./constants";
-import { Button, IconButton } from "@mui/material";
-import { Attribution, Settings, SentimentSatisfied, Star } from "@mui/icons-material";
-
-function ChatMessage(usuario = "Manolo", mensaje = "¡Hola mi gente! ¿Qué tal? ¿Cómo estás todos? Estoy emocionado por todo") {
-  return (
-      <p className="text-start">
-        <IconButton aria-label="delete" size="large" style={{ padding: 0, marginRight: "0.25rem", backgroundColor: "cyan", borderRadius: "10%" }}>
-          <Star fontSize="inherit" className="text-white" />
-        </IconButton>
-        <span className="text-purple-800">{usuario}</span> <span>:</span> <span>{mensaje}</span>
-      </p>
-  );
-}
+import { Button } from "@mui/material";
+import { Attribution, Settings, SentimentSatisfied } from "@mui/icons-material";
+import Chat from "./Chat";
+import { RANDOM_USER } from "./constants";
 
 function App() {
-  const usuarios = USERNAMESARRAY;
+  const [randomUser, setRandomUser] = useState(null);
+  const intervalTime = 500;
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (randomUser === null) {
+        setRandomUser(RANDOM_USER());
+      } else {
+        setRandomUser(null);
+      }
+    }, intervalTime);
+
+    return () => clearInterval(intervalId);
+  }, [intervalTime, randomUser]);
 
   return (
-    <div id="main-container" className="fixed top-[50%] right-[50%] translate-x-[50%] translate-y-[-50%] border-3 border-black-900 grid grid-cols-1 gap-3">
-      <div id="chat-box" className="flex flex-col justify-start items-start">
-        {usuarios.map((user) => {
-          return ChatMessage(user, RANDOMMESSAGE(user.length + 10));
-        })}
-      </div>
+    <div id="main-container" className="border-3 border-black-900 grid grid-cols-1 gap-3">
+      <Chat randomUser={randomUser} />
       <div id="control-box">
         <div id="input-box" className="w-full border-2 border-purple-600 rounded flex flex-row justify-stretch items-center p-1">
           <div className="border-s-2 border-gray-400 flex flex-row justify-between items-baseline grow text-gray-400">
@@ -38,7 +37,9 @@ function App() {
           </div>
           <div id="toolbar-conf">
             <Settings />
-            <Button variant="contained">Reply</Button>
+            <Button variant="contained" style={{ backgroundColor: "#9146ff" }}>
+              Reply
+            </Button>
           </div>
         </div>
       </div>
